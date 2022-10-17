@@ -27,7 +27,7 @@ public class Driver {
         Driver driver = new Driver();
         driver.generateStudentArray();
         driver.createModules();
-        driver.addStudentsToModules();
+        driver.addStudentsToModulesAndCourse();
         driver.createCourseProgrammes();
 
         driver.printCourses(computerScience);
@@ -52,10 +52,17 @@ public class Driver {
                 output = String.format("\t\t%s %s\n\t\t\t%s",
                         student.getfName(), student.getlName(),student.getUsername()) ;
 
-                if (module.getStudentList().contains(student)){
-                    output += String.format("\n\t\t\t\t%s\n\t\t\t\t\t%s",
-                            module.getModuleName(), module.getCoursesAssociated());
+                //getting student modules and course
+                String tempModuleOutput = "";
+                for (Module module1 : student.getRegisteredModules()){
+                    tempModuleOutput += module1.getModuleName() + "\n\t\t\t\t";
                 }
+                output += String.format("\n\t\t\t\t%s\t%s",
+                        tempModuleOutput, student.getRegisteredCourse().get(0).getName());
+//                if (module.getStudentList().contains(student)){
+//                    output += String.format("\n\t\t\t\t%s\n\t\t\t\t\t%s",
+//                            module.getModuleName(), student.getRegisteredCourse().get(0));
+//                }
 
 
                 System.out.println(output);
@@ -63,33 +70,33 @@ public class Driver {
             }
         }
 
-        //prints students
-        for (Student student : course.getStudentsEnrolled()) {
-            System.out.println(student.getUsername());
-        }
-
-        //prints student usernames
-        for (Student student : course.getStudentsEnrolled()) {
-            System.out.println(student.getUsername());
-        }
-
-        //prints student modules
-        for (Student student : course.getStudentsEnrolled()) {
-            for (Student student1 : course.getStudentsEnrolled()) {
-                if (course.getStudentsEnrolled().contains(student1)) {
-                    System.out.println(student1);
-                }
-            }
-        }
-
-        //prints student courses
-        for (Student student : course.getStudentsEnrolled()) {
-            for (Student student1 : course.getStudentsEnrolled()) {
-                if (course.getStudentsEnrolled().contains(student1)) {
-                    System.out.println(student1);
-                }
-            }
-        }
+//        //prints students
+//        for (Student student : course.getStudentsEnrolled()) {
+//            System.out.println(student.getUsername());
+//        }
+//
+//        //prints student usernames
+//        for (Student student : course.getStudentsEnrolled()) {
+//            System.out.println(student.getUsername());
+//        }
+//
+//        //prints student modules
+//        for (Student student : course.getStudentsEnrolled()) {
+//            for (Student student1 : course.getStudentsEnrolled()) {
+//                if (course.getStudentsEnrolled().contains(student1)) {
+//                    System.out.println(student1);
+//                }
+//            }
+//        }
+//
+//        //prints student courses
+//        for (Student student : course.getStudentsEnrolled()) {
+//            for (Student student1 : course.getStudentsEnrolled()) {
+//                if (course.getStudentsEnrolled().contains(student1)) {
+//                    System.out.println(student1);
+//                }
+//            }
+//        }
 
     }
 
@@ -144,17 +151,35 @@ public class Driver {
     }
 
     //adding students to modules
-    private void addStudentsToModules() {
+    private void addStudentsToModulesAndCourse() {
         for (i = 0; i < 5; i++) {
-            softwareEngineering.addStudentToList(studentArray.get(random.nextInt(studentArray.size())));
+            Student testStudent = new Student();
 
-            hardwareDesign.addStudentToList(studentArray.get(random.nextInt(studentArray.size())));
+            //gets random student
+            testStudent = studentArray.get(random.nextInt(studentArray.size()));
+            testStudent.addModule(softwareEngineering);
+            testStudent.addCourse(computerScience);
+            softwareEngineering.addStudentToList(testStudent);
 
-            anatomy.addStudentToList(studentArray.get(random.nextInt(studentArray.size())));
+            testStudent = studentArray.get(random.nextInt(studentArray.size()));
+            testStudent.addModule(hardwareDesign);
+            testStudent.addCourse(computerEngineering);
+            hardwareDesign.addStudentToList(testStudent);
 
-            maths.addStudentToList(studentArray.get(random.nextInt(studentArray.size())));
+            testStudent = studentArray.get(random.nextInt(studentArray.size()));
+            testStudent.addModule(anatomy);
+            testStudent.addCourse(medicine);
+            anatomy.addStudentToList(testStudent);
 
-            structuralDesign.addStudentToList(studentArray.get(random.nextInt(studentArray.size())));
+            testStudent = studentArray.get(random.nextInt(studentArray.size()));
+            testStudent.addModule(maths);
+            testStudent.addCourse(computerScience);
+            maths.addStudentToList(testStudent);
+
+            testStudent = studentArray.get(random.nextInt(studentArray.size()));
+            testStudent.addModule(structuralDesign);
+            testStudent.addCourse(computerEngineering);
+            structuralDesign.addStudentToList(testStudent);
         }
 
 
